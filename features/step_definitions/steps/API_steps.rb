@@ -25,3 +25,23 @@ Then(/^A new dish is created$/) do
   p JSON.parse(@response.body)['id']
   expect(JSON.parse(@response.body)['id']).to eq(@id)
 end
+
+When(/^I delete a dish$/) do
+  @response = send_post('/api/dishes', @json)
+  @id = JSON.parse(@response.body)['id']
+  @response = send_delete('/api/dishes', @id)
+
+end
+
+Then(/^the dish is deleted$/) do
+  p @response.code
+  p @response.message
+end
+
+And(/^the dish cannot be found$/) do
+  @response = send_get("/api/dishes/#{@id}")
+  p @response.code
+  p @response.message
+  expect(JSON.parse(@response.body)['error']['code']).to eq("MODEL_NOT_FOUND")
+  p JSON.parse(@response.body)['error']['code']
+end
