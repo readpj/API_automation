@@ -7,7 +7,15 @@ def send_post(path, json)
   # @request = Net::HTTP::Post.new(@path, init_header = {'Content-Type' => 'application/json'})
   request.body = json
   response = http.request(request)
-  response
+end
+
+def send_delete(path, id)
+  host = TestConfig['host']
+  url = URI(host + path + '/' + id)
+  http = Net::HTTP.new(url.host, url.port = 3000)
+  request = Net::HTTP::Delete.new(url)
+  request['Content-Type'] = 'application/json'
+  response = http.request(request)
 end
 
 def send_get (path)
@@ -19,7 +27,6 @@ def send_get (path)
   request['Content-Type'] = 'application/json'
   # @request = Net::HTTP::Post.new(@path, init_header = {'Content-Type' => 'application/json'})
   response = http.request(request)
-  response
 end
 
 def send_request(connection, request)
