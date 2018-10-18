@@ -1,3 +1,4 @@
+@api
 Feature: API
 #  @api
   Scenario: API
@@ -10,7 +11,6 @@ Feature: API
     When I create a new dish
     Then A new dish is created
 
-  @api
   Scenario: Delete API
     Given I want to create a dish
     When I delete a dish
