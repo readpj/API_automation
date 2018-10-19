@@ -1,5 +1,5 @@
 def send_post(path, json)
-  host = TestConfig['host']
+  host = 'http://localhost:3000'
   url = URI(host + path)
   http = Net::HTTP.new(url.host, url.port = 3000)
   request = Net::HTTP::Post.new(url)
@@ -10,7 +10,7 @@ def send_post(path, json)
 end
 
 def send_delete(path, id)
-  host = TestConfig['host']
+  host = 'http://localhost:3000'
   url = URI(host + path + '/' + id)
   http = Net::HTTP.new(url.host, url.port = 3000)
   request = Net::HTTP::Delete.new(url)
@@ -20,7 +20,7 @@ end
 
 def send_get (path)
   # url = URI('http://localhost:3000/api/dishes')
-  host = TestConfig['host']
+  host = 'http://localhost:3000'
   url = URI(host + path)
   http = Net::HTTP.new(url.host, url.port = 3000)
   request = Net::HTTP::Get.new(url)
