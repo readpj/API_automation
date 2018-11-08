@@ -29,6 +29,19 @@ def send_get (path)
   response = http.request(request)
 end
 
+def send_get_with_parameter (path, parameters)
+  # url = URI('http://localhost:3000/api/dishes')
+  host = 'http://localhost:3000'
+  url = URI(host + path)
+  url.query = parameters
+  http = Net::HTTP.new(url.host, url.port = 3000)
+  request = Net::HTTP::Get.new(url)
+  request['Content-Type'] = 'application/json'
+  # @request = Net::HTTP::Post.new(@path, init_header = {'Content-Type' => 'application/json'})
+  response = http.request(request)
+end
+
+
 def send_request(connection, request)
   retry_attempts = 5
   retry_interval = 2
