@@ -1,6 +1,5 @@
 @api
 Feature: API
-#  @api
   Scenario: API
     Given I want to create a dish
     When I create a dish
@@ -16,6 +15,11 @@ Feature: API
     When I delete a dish
     Then the dish is deleted
     And the dish cannot be found
+
+  Scenario: Get with parameters counts number of pies
+    Given I create a new dish
+    When I find the dish
+    Then the dishes are found
 
 #    GET /dishes/findOne
 #    with parameters

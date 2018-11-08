@@ -1,6 +1,6 @@
 Given(/^I want to create a dish$/) do
-  dish = Dishes.new
-  @json = dish.to_json
+  @dish = Dishes.new
+  @json = @dish.to_json
 end
 
 When(/^I create a dish$/) do
@@ -9,12 +9,15 @@ end
 
 Then(/^A dish is created$/) do
   p @response.code
-  # expect(JSON.parse(@response.body)['name']).to eq('Pie')
+  expect(JSON.parse(@response.body)['name']).to eq(@dish.name)
+  expect(JSON.parse(@response.body)['price']).to eq(@dish.price)
   # p JSON.parse(@response.body)['name']
 
 end
 
 When(/^I create a new dish$/) do
+  @dish = Dishes.new
+  @json = @dish.to_json
   @response = send_post('/api/dishes', @json)
   @id = JSON.parse(@response.body)['id']
 end
@@ -44,4 +47,13 @@ And(/^the dish cannot be found$/) do
   p @response.message
   expect(JSON.parse(@response.body)['error']['code']).to eq("MODEL_NOT_FOUND")
   p JSON.parse(@response.body)['error']['code']
+end
+
+When(/^I find the dish$/) do
+  @response = send_get_with_parameter('/api/dishes/count?where=', "%7B%22name%22%3A%22#{@dish.name}%22%7D")
+end
+
+Then(/^the dishes are found$/) do
+  p JSON.parse(@response.body)['count']
+
 end
